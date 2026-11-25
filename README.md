@@ -1,1 +1,121 @@
-🎵 Jukebox-python (Maxi Music Box Replica)🇨🇿 Česká verze | 🇬🇧 English version🇨🇿 Česká verzeDigitální replika legendárního českého hospodského jukeboxu napsaná v Pythonu. Aplikace je navržena tak, aby běžela jak na klasickém počítači (Windows, Linux, macOS), tak na Raspberry Pi 4 s připojeným LCD displejem, hardwarovými tlačítky a infračerveným (IR) dálkovým ovládáním.✨ Hlavní funkceAutentické rozhraní: Rychlé listování podle interpretů, alb, abecedního rejstříku nebo žebříčku TOP 50 nejhranějších skladeb.Rozdělení knihovny: Automatická detekce a přepínání mezi Českou/Slovenskou a Zahraniční hudbou, plus podpora videoklipů.Chytrý skener (scan.py): Automaticky čte ID3 tagy, sjednocuje jména interpretů (odstraňuje duplicity, feat., diakritiku) a stahuje obaly alb online (Deezer, iTunes, CoverArtArchive, volitelně Discogs).Režim Auto-DJ: Automatické doplňování a přehrávání náhodných skladeb, když je fronta přání prázdná.Flexibilní ovládání: Podpora klávesnice, myši, 4 fyzických tlačítek na GPIO i 21tlačítkového IR dálkového ovladače.💻 Instalace1. Stažení projektu:git clone [https://github.com/TomMiga/Jukebox-python.git](https://github.com/TomMiga/Jukebox-python.git)cd Jukebox-python2. Instalace závislostí (Python 3.9+):Windows: Nainstaluj Python 3 (zaškrtni Add Python to PATH), přehrávač MPV a spusť: pip install pygame mutagen Pillow requests python-mpvLinux / Raspberry Pi OS: sudo apt update && sudo apt install -y python3-pip python3-pygame python3-pil python3-requests libmpv-dev mpv && pip3 install mutagen python-mpv --break-system-packagesmacOS: brew install python mpv && pip3 install pygame mutagen Pillow requests python-mpv🚀 První spuštění (ukázková knihovna)Naskenování hudby a stažení obalů alb: python scan.py (Volitelně: pro Discogs doplň svůj token do DISCOGS_TOKEN v config.py.)Spuštění jukeboxu: python main.py⌨️ Ovládání přes klávesniciKlávesaFunkceŠipka Nahoru / DolůPohyb v seznamu interpretů, alb nebo skladebŠipka Vlevo / VpravoPřepínání mezi sloupci / kategoriemi (CZ-SK / Zahraniční / TOP 50 / Videa)Enter / MezerníkVýběr interpreta / alba nebo přidání skladby do fronty přáníBackspace / EscNávrat o úroveň zpět (z alba na interprety, zavření okna)NPřeskočit na další skladbu ve frontě (Next)PPozastavit / obnovit přehrávání (Play / Pause)+ / -Zvýšení / snížení hlasitostiDZapnout / vypnout režim Auto-DJA – ZRychlý skok na interpreta podle počátečního písmeneQ / Alt+F4Ukončení aplikace🔌 Zapojení hardwaru pro Raspberry Pi 4 (GPIO + IR)⚠️ UPOZORNĚNÍ: IR přijímač i tlačítka zapojuj výhradně na 3,3 V (Pin 1 nebo Pin 17). Připojení 5 V na GPIO piny nenávratně poškodí procesor Raspberry Pi!SoučástkaPin součástkyPin na Raspberry Pi 4PoznámkaIR přijímač (HX1838)OUT (Data)GPIO 18 (Pin 12)Datový výstupIR přijímač (HX1838)GNDGND (Pin 6)Společná zemIR přijímač (HX1838)VCC3.3V (Pin 1)Doporučen RC filtr (100 Ω do série + 100 nF proti GND)Tlačítko NAHORUKontakt 1 / 2GPIO 5 (Pin 29) / GNDSpíná proti zemi (interní pull-up)Tlačítko DOLŮKontakt 1 / 2GPIO 6 (Pin 31) / GNDSpíná proti zemi (interní pull-up)Tlačítko ENTERKontakt 1 / 2GPIO 13 (Pin 33) / GNDSpíná proti zemi (interní pull-up)Tlačítko ZPĚTKontakt 1 / 2GPIO 19 (Pin 35) / GNDSpíná proti zemi (interní pull-up)Aktivace IR v Raspberry Pi OS: Do souboru /boot/firmware/config.txt (u starších verzí /boot/config.txt) přidej na konec řádek dtoverlay=gpio-ir,gpio_pin=18 a restartuj RPi.🇬🇧 English VersionA Python-based digital replica of a classic Czech pub jukebox. Designed to run on desktop operating systems (Windows, Linux, macOS) as well as on a Raspberry Pi 4 with an LCD screen, physical buttons, and an infrared (IR) remote control.✨ Key FeaturesAuthentic UI: Fast browsing by artist, album, alphabetical index, or TOP 50 most-played tracks.Smart Library Organization: Automatic separation of domestic (CZ/SK) and International music, plus music video support.Intelligent Scanner (scan.py): Reads ID3 tags, normalizes artist names (merging duplicates, stripping feat. tags and diacritics), and fetches album cover art from Deezer, iTunes, CoverArtArchive, and optionally Discogs.Auto-DJ Mode: Automatically queues and plays random tracks whenever the user request queue is empty.Flexible Controls: Full support for keyboard, mouse, 4 physical GPIO pushbuttons, and a 21-key NEC IR remote control.💻 Installation1. Clone the repository:git clone [https://github.com/TomMiga/Jukebox-python.git](https://github.com/TomMiga/Jukebox-python.git)cd Jukebox-python2. Install dependencies (Python 3.9+):Windows: Install Python 3 (check Add Python to PATH), MPV Player, and run: pip install pygame mutagen Pillow requests python-mpvLinux / Raspberry Pi OS: sudo apt update && sudo apt install -y python3-pip python3-pygame python3-pil python3-requests libmpv-dev mpv && pip3 install mutagen python-mpv --break-system-packagesmacOS: brew install python mpv && pip3 install pygame mutagen Pillow requests python-mpv🚀 Quick Start (Demo Library)Scan the music library and fetch cover art: python scan.py (Optional: add your free token to DISCOGS_TOKEN in config.py for Discogs support.)Launch the jukebox: python main.py⌨️ Keyboard ControlsKeyActionUp / Down ArrowNavigate through artists, albums, or tracksLeft / Right ArrowSwitch categories / tabs (CZ-SK / International / TOP 50 / Videos)Enter / SpaceOpen artist/album or add selected song to the queueBackspace / EscGo back one level / close dialogNSkip to the next song in the queuePPlay / Pause current playback+ / -Volume Up / Volume DownDToggle Auto-DJ mode ON/OFFA – ZQuick-jump to artist by first letterQ / Alt+F4Exit application🔌 Raspberry Pi 4 Hardware Wiring (GPIO + IR)⚠️ WARNING: Power the IR receiver and buttons strictly from the 3.3V rail (Pin 1 or Pin 17). Connecting 5V to any GPIO pin will permanently damage the Raspberry Pi!ComponentComponent PinRaspberry Pi 4 PinNotesIR Receiver (HX1838)OUT (Data)GPIO 18 (Pin 12)Data signalIR Receiver (HX1838)GNDGND (Pin 6)Common groundIR Receiver (HX1838)VCC3.3V (Pin 1)Recommended RC filter (100 Ω series + 100 nF to GND)Button UPPin 1 / Pin 2GPIO 5 (Pin 29) / GNDActive-low (internal pull-up)Button DOWNPin 1 / Pin 2GPIO 6 (Pin 31) / GNDActive-low (internal pull-up)Button ENTERPin 1 / Pin 2GPIO 13 (Pin 33) / GNDActive-low (internal pull-up)Button BACKPin 1 / Pin 2GPIO 19 (Pin 35) / GNDActive-low (internal pull-up)
+# 🎵 Jukebox-python (Maxi Music Box Replica)
+
+[🇨🇿 Česká verze](#-česká-verze) | [🇬🇧 English version](#-english-version)
+
+---
+
+## 🇨🇿 Česká verze
+
+Digitální replika legendárního českého hospodského jukeboxu napsaná v Pythonu. Aplikace je navržena tak, aby běžela jak na klasickém počítači (Windows, Linux, macOS), tak na **Raspberry Pi 4** s připojeným LCD displejem, hardwarovými tlačítky a infračerveným (IR) dálkovým ovládáním.
+
+### ✨ Hlavní funkce
+* **Autentické rozhraní:** Rychlé listování podle interpretů, alb, abecedního rejstříku nebo žebříčku **TOP 50** nejhranějších skladeb.
+* **Rozdělení knihovny:** Automatická detekce a přepínání mezi **Českou/Slovenskou** a **Zahraniční** hudbou, plus podpora videoklipů.
+* **Chytrý skener (`scan.py`):** Automaticky čte ID3 tagy, sjednocuje jména interpretů (odstraňuje duplicity, `feat.`, diakritiku) a stahuje obaly alb online (Deezer, iTunes, CoverArtArchive, volitelně Discogs).
+* **Režim Auto-DJ:** Automatické doplňování a přehrávání náhodných skladeb, když je fronta přání prázdná.
+* **Flexibilní ovládání:** Podpora klávesnice, myši, 4 fyzických tlačítek na GPIO i 21tlačítkového IR dálkového ovladače.
+
+### 💻 Instalace
+
+**1. Stažení projektu:**
+* `git clone https://github.com/TomMiga/Jukebox-python.git`
+* `cd Jukebox-python`
+
+**2. Instalace závislostí (Python 3.9+):**
+* **Windows:** Nainstaluj Python 3 (zaškrtni *Add Python to PATH*), přehrávač MPV a spusť: `pip install pygame mutagen Pillow requests python-mpv`
+* **Linux / Raspberry Pi OS:** `sudo apt update && sudo apt install -y python3-pip python3-pygame python3-pil python3-requests libmpv-dev mpv && pip3 install mutagen python-mpv --break-system-packages`
+* **macOS:** `brew install python mpv && pip3 install pygame mutagen Pillow requests python-mpv`
+
+### 🚀 První spuštění (ukázková knihovna)
+1. **Naskenování hudby a stažení obalů alb:** `python scan.py` *(Volitelně: pro Discogs doplň svůj token do `DISCOGS_TOKEN` v `config.py`.)*
+2. **Spuštění jukeboxu:** `python main.py`
+
+### ⌨️ Ovládání přes klávesnici
+
+| Klávesa | Funkce |
+| :--- | :--- |
+| **`Šipka Nahoru` / `Dolů`** | Pohyb v seznamu interpretů, alb nebo skladeb |
+| **`Šipka Vlevo` / `Vpravo`** | Přepínání mezi sloupci / kategoriemi (CZ-SK / Zahraniční / TOP 50 / Videa) |
+| **`Enter` / `Mezerník`** | Výběr interpreta / alba nebo přidání skladby do fronty přání |
+| **`Backspace` / `Esc`** | Návrat o úroveň zpět (z alba na interprety, zavření okna) |
+| **`N`** | Přeskočit na další skladbu ve frontě (Next) |
+| **`P`** | Pozastavit / obnovit přehrávání (Play / Pause) |
+| **`+` / `-`** | Zvýšení / snížení hlasitosti |
+| **`D`** | Zapnout / vypnout režim **Auto-DJ** |
+| **`A` – `Z`** | Rychlý skok na interpreta podle počátečního písmene |
+| **`Q` / `Alt+F4`** | Ukončení aplikace |
+
+### 🔌 Zapojení hardwaru pro Raspberry Pi 4 (GPIO + IR)
+
+> ⚠️ **UPOZORNĚNÍ:** IR přijímač i tlačítka zapojuj výhradně na **3,3 V** (Pin 1 nebo Pin 17). Připojení 5 V na GPIO piny nenávratně poškodí procesor Raspberry Pi!
+
+| Součástka | Pin součástky | Pin na Raspberry Pi 4 | Poznámka |
+| :--- | :--- | :--- | :--- |
+| **IR přijímač (HX1838)** | `OUT` (Data) | **GPIO 18** (Pin 12) | Datový výstup |
+| **IR přijímač (HX1838)** | `GND` | **GND** (Pin 6) | Společná zem |
+| **IR přijímač (HX1838)** | `VCC` | **3.3V** (Pin 1) | Doporučen RC filtr (100 Ω do série + 100 nF proti GND) |
+| **Tlačítko NAHORU** | Kontakt 1 / 2 | **GPIO 5** (Pin 29) / **GND** | Spíná proti zemi (interní pull-up) |
+| **Tlačítko DOLŮ** | Kontakt 1 / 2 | **GPIO 6** (Pin 31) / **GND** | Spíná proti zemi (interní pull-up) |
+| **Tlačítko ENTER** | Kontakt 1 / 2 | **GPIO 13** (Pin 33) / **GND** | Spíná proti zemi (interní pull-up) |
+| **Tlačítko ZPĚT** | Kontakt 1 / 2 | **GPIO 19** (Pin 35) / **GND** | Spíná proti zemi (interní pull-up) |
+
+**Aktivace IR v Raspberry Pi OS:** Do souboru `/boot/firmware/config.txt` (u starších verzí `/boot/config.txt`) přidej na konec řádek `dtoverlay=gpio-ir,gpio_pin=18` a restartuj RPi.
+
+---
+
+## 🇬🇧 English Version
+
+A Python-based digital replica of a classic Czech pub jukebox. Designed to run on desktop operating systems (Windows, Linux, macOS) as well as on a **Raspberry Pi 4** with an LCD screen, physical buttons, and an infrared (IR) remote control.
+
+### ✨ Key Features
+* **Authentic UI:** Fast browsing by artist, album, alphabetical index, or **TOP 50** most-played tracks.
+* **Smart Library Organization:** Automatic separation of domestic (**CZ/SK**) and **International** music, plus music video support.
+* **Intelligent Scanner (`scan.py`):** Reads ID3 tags, normalizes artist names (merging duplicates, stripping `feat.` tags and diacritics), and fetches album cover art from Deezer, iTunes, CoverArtArchive, and optionally Discogs.
+* **Auto-DJ Mode:** Automatically queues and plays random tracks whenever the user request queue is empty.
+* **Flexible Controls:** Full support for keyboard, mouse, 4 physical GPIO pushbuttons, and a 21-key NEC IR remote control.
+
+### 💻 Installation
+
+**1. Clone the repository:**
+* `git clone https://github.com/TomMiga/Jukebox-python.git`
+* `cd Jukebox-python`
+
+**2. Install dependencies (Python 3.9+):**
+* **Windows:** Install Python 3 (check *Add Python to PATH*), MPV Player, and run: `pip install pygame mutagen Pillow requests python-mpv`
+* **Linux / Raspberry Pi OS:** `sudo apt update && sudo apt install -y python3-pip python3-pygame python3-pil python3-requests libmpv-dev mpv && pip3 install mutagen python-mpv --break-system-packages`
+* **macOS:** `brew install python mpv && pip3 install pygame mutagen Pillow requests python-mpv`
+
+### 🚀 Quick Start (Demo Library)
+1. **Scan the music library and fetch cover art:** `python scan.py` *(Optional: add your free token to `DISCOGS_TOKEN` in `config.py` for Discogs support.)*
+2. **Launch the jukebox:** `python main.py`
+
+### ⌨️ Keyboard Controls
+
+| Key | Action |
+| :--- | :--- |
+| **`Up` / `Down` Arrow** | Navigate through artists, albums, or tracks |
+| **`Left` / `Right` Arrow** | Switch categories / tabs (CZ-SK / International / TOP 50 / Videos) |
+| **`Enter` / `Space`** | Open artist/album or add selected song to the queue |
+| **`Backspace` / `Esc`** | Go back one level / close dialog |
+| **`N`** | Skip to the next song in the queue |
+| **`P`** | Play / Pause current playback |
+| **`+` / `-`** | Volume Up / Volume Down |
+| **`D`** | Toggle **Auto-DJ** mode ON/OFF |
+| **`A` – `Z`** | Quick-jump to artist by first letter |
+| **`Q` / `Alt+F4`** | Exit application |
+
+### 🔌 Raspberry Pi 4 Hardware Wiring (GPIO + IR)
+
+> ⚠️ **WARNING:** Power the IR receiver and buttons strictly from the **3.3V** rail (Pin 1 or Pin 17). Connecting 5V to any GPIO pin will permanently damage the Raspberry Pi!
+
+| Component | Component Pin | Raspberry Pi 4 Pin | Notes |
+| :--- | :--- | :--- | :--- |
+| **IR Receiver (HX1838)** | `OUT` (Data) | **GPIO 18** (Pin 12) | Data signal |
+| **IR Receiver (HX1838)** | `GND` | **GND** (Pin 6) | Common ground |
+| **IR Receiver (HX1838)** | `VCC` | **3.3V** (Pin 1) | Recommended RC filter (100 Ω series + 100 nF to GND) |
+| **Button UP** | Pin 1 / Pin 2 | **GPIO 5** (Pin 29) / **GND** | Active-low (internal pull-up) |
+| **Button DOWN** | Pin 1 / Pin 2 | **GPIO 6** (Pin 31) / **GND** | Active-low (internal pull-up) |
+| **Button ENTER** | Pin 1 / Pin 2 | **GPIO 13** (Pin 33) / **GND** | Active-low (internal pull-up) |
+| **Button BACK** | Pin 1 / Pin 2 | **GPIO 19** (Pin 35) / **GND** | Active-low (internal pull-up) |
+
+**Enabling IR in Raspberry Pi OS:** Add `dtoverlay=gpio-ir,gpio_pin=18` to `/boot/firmware/config.txt` (or `/boot/config.txt`) and reboot.
