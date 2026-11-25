@@ -15,6 +15,8 @@ Digitální replika legendárního českého hospodského jukeboxu napsaná v Py
 * **Režim Auto-DJ:** Automatické doplňování a přehrávání náhodných skladeb, když je fronta přání prázdná.
 * **Flexibilní ovládání:** Podpora klávesnice, myši, 4 fyzických tlačítek na GPIO i 21tlačítkového IR dálkového ovladače.
 
+![Ukázka aplikace Jukebox-python](screenshot.png)
+
 ### 💻 Instalace
 
 **1. Stažení projektu:**
@@ -73,6 +75,8 @@ A Python-based digital replica of a classic Czech pub jukebox. Designed to run o
 * **Intelligent Scanner (`scan.py`):** Reads ID3 tags, normalizes artist names (merging duplicates, stripping `feat.` tags and diacritics), and fetches album cover art from Deezer, iTunes, CoverArtArchive, and optionally Discogs.
 * **Auto-DJ Mode:** Automatically queues and plays random tracks whenever the user request queue is empty.
 * **Flexible Controls:** Full support for keyboard, mouse, 4 physical GPIO pushbuttons, and a 21-key NEC IR remote control.
+
+![Ukázka aplikace Jukebox-python](screenshot.png)
 
 ### 💻 Installation
 
