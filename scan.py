@@ -10,7 +10,7 @@ Jedním spuštěním:
 import os
 import config
 import library
-
+import sys
 
 def main():
     print("=" * 55)
@@ -25,7 +25,8 @@ def main():
 
     library.scan_library()
 
-    print("\nVše hotovo! Můžeš spustit jukebox:  python3 main.py")
+    cmd = "python main.py" if sys.platform == "win32" else "python3 main.py"
+    print(f"Vše hotovo! Můžeš spustit jukebox:  {cmd}")
 
 
 if __name__ == "__main__":
